@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import os
-from os import system
 
 import requests
 from aiogram import Bot, Dispatcher
@@ -14,7 +13,7 @@ GROUP_ID = '-4569840993'
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
-url = "https://api.zakovatklubi.uz/v1/tournament/682?include=clubCount,personCount,teamCount,categories,file,seasons,tours.matches,is_subscription&_l=uz"
+url = "https://api.zakovatklubi.uz/v1/tournament/699?include=clubCount,personCount,teamCount,categories,file,seasons,tours.matches,is_subscription&_l=uz"
 headers = {
     "accept": "application/json",
     "authorization": "Bearer wz6EkzsFVyqrE7Ef14Mtf6Mg3C2_WYaq7ysbsPpj1yTFtUuTt51C57Et4PpGjf_t"
@@ -29,16 +28,13 @@ def fetch_data_from_api():
         start_date = data['data']['start_at']
         team_count = data['data']['teamCount']
         person_count = data['data']['personCount']
-        accept_request = data['data']['accept_request']
 
         readable_start_date = datetime.fromtimestamp(start_date, timezone.utc).strftime('%Y-%m-%d %H:%M:%S %Z')
-        accept_request = "ochiq" if accept_request else "yopildi"
 
         text = f"""{quiz_title} quizga ro'yxatdan o'tish boshlandi
 Start Date: {readable_start_date}
 {team_count}ta jamoa ro'yxatdan o'tdi
 {person_count} ta odam ro'yxatdan o'tib bo'ldi
-Ro'yxatdan o'tish: {accept_request}
 """
 
         return text
