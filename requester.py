@@ -1,5 +1,7 @@
 import asyncio
 import logging
+import os
+from os import system
 
 import requests
 from aiogram import Bot, Dispatcher
@@ -51,8 +53,8 @@ async def send_data_to_group():
 
     if data:
         message = await bot.send_message(GROUP_ID, data, parse_mode=ParseMode.MARKDOWN)
-
-        # await bot.pin_chat_message(GROUP_ID, message.message_id)
+        await bot.pin_chat_message(GROUP_ID, message.message_id)
+        os.system('systemctl stop scheduler.service')
     else:
         print("No data received from API.")
 
