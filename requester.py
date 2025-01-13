@@ -5,7 +5,10 @@ import os
 import requests
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
+from aiogram.filters import Command
 from datetime import datetime, timezone
+
+from aiogram.types import Message
 
 API_TOKEN = '7573998446:AAGM1MVdlYtR8e854zqRujEHDk3GoxqHRLc'
 GROUP_ID = '-4569840993'
@@ -13,7 +16,16 @@ GROUP_ID = '-4569840993'
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
-url = "https://api.zakovatklubi.uz/v1/tournament/699?include=clubCount,personCount,teamCount,categories,file,seasons,tours.matches,is_subscription&_l=uz"
+tour_number = 703
+
+@dp.message(Command("stop"))
+async def stop(message: Message):
+    global tour_number
+    tour_number= 1000
+    await message.answer("stopped")
+    print(tour_number)
+
+url = f"https://api.zakovatklubi.uz/v1/tournament/{tour_number}?include=clubCount,personCount,teamCount,categories,file,seasons,tours.matches,is_subscription&_l=uz"
 headers = {
     "accept": "application/json",
     "authorization": "Bearer wz6EkzsFVyqrE7Ef14Mtf6Mg3C2_WYaq7ysbsPpj1yTFtUuTt51C57Et4PpGjf_t"
@@ -58,7 +70,8 @@ async def send_data_to_group():
 async def schedule_task():
     while True:
         await send_data_to_group()
-        await asyncio.sleep(60)
+        await asyncio.sleep(20)
+
 
 
 async def main():
