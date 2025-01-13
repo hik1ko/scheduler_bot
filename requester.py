@@ -38,15 +38,14 @@ def fetch_data_from_api():
         data = response.json()
         quiz_title = data['data']['title']
         start_date = data['data']['start_at']
-        team_count = data['data']['teamCount']
         person_count = data['data']['personCount']
 
         readable_start_date = datetime.fromtimestamp(start_date, timezone.utc).strftime('%Y-%m-%d %H:%M:%S %Z')
 
         text = f"""{quiz_title} quizga ro'yxatdan o'tish boshlandi
 Start Date: {readable_start_date}
-{team_count}ta jamoa ro'yxatdan o'tdi
 {person_count} ta odam ro'yxatdan o'tib bo'ldi
+URL: https://zakovatklubi.uz/tournaments/{tour_number}
 """
 
         return text
