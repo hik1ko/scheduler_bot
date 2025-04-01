@@ -11,7 +11,7 @@ GROUP_ID = '-1002438140253'
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
-tour_number = 717
+tour_number = 734
 
 sign_in_url = "https://api.zakovatklubi.uz/v1/user/sign-in?&_l=uz"
 reg_url = "https://api.zakovatklubi.uz/v1/user/request?&_l=uz"
@@ -30,10 +30,6 @@ sign_params = [
     {
         "phone": "+998934246558",
         "password": "Sirojiddin2004;"
-    },
-    {
-        "phone": "+998935011112",
-        "password": "Shoaziz17"
     }
 ]
 
@@ -61,10 +57,6 @@ reg_headers3 = {
     "Authorization": f"Bearer {sign_in(sign_params[2])}"
 }
 
-reg_headers4 = {
-    "Accept": "application/json",
-    "Authorization": f"Bearer {sign_in(sign_params[3])}"
-}
 
 params1 = {
     "title": '"null"',
@@ -78,17 +70,17 @@ params1 = {
     "reservePersonIds": []
 }
 
-params2 = {
-    "title": '4ever young',
-    "description": "null",
-    "logo_id": 234401,
-    "club_id": 10035,
-    "team_id": 27082,
-    "type": 1,
-    "tournament_id": tour_number,
-    "mainPersonIds": [332878, 332879, 332881, 364919, 165782],
-    "reservePersonIds": []
-}
+# params2 = {
+#     "title": '4ever young',
+#     "description": "null",
+#     "logo_id": 234401,
+#     "club_id": 10035,
+#     "team_id": 27082,
+#     "type": 1,
+#     "tournament_id": tour_number,
+#     "mainPersonIds": [332878, 332879, 332881, 364919, 165782],
+#     "reservePersonIds": []
+# }
 
 
 def fetch_data_from_api():
@@ -105,10 +97,9 @@ url: https://zakovatklubi.uz/tournaments/{tour_number}"""
 
 def auto_register():
     response1 = requests.post(reg_url, headers=reg_headers1, json=params1)
-    response2 = requests.post(reg_url, headers=reg_headers4, json=params2)
-    if response1.json()['message'] == "So'rov muvaffaqiyatli yuborildi" and response2.json()[
-        'message'] == "So'rov muvaffaqiyatli":
-        return "Jamoalar muvaffaqiyatli ro'yxatdan o'tkazildi!"
+    # response2 = requests.post(reg_url, headers=reg_headers4, json=params2)
+    if response1.json()['message'] == "So'rov muvaffaqiyatli yuborildi":
+        return "null muvaffaqiyatli ro'yxatdan o'tkazildi!"
     else:
         return None
 
